@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.domain.Employee;
 import com.yedam.persistence.EmpDAO;
 
-@WebServlet("addMemberServlet")
+@WebServlet("/addMemberServlet")
 public class AddMemberServlet extends HttpServlet{
 	// 생성자, init, service
 	

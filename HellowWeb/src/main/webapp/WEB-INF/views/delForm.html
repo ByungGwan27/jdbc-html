@@ -1,13 +1,8 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>delForm.html</title>
-</head>
-<body>
+<jsp:include page="menu.jsp"></jsp:include>
+<jsp:include page="nav.jsp"></jsp:include>
 	<form action="delMemberServlet">
 		d_eid: <input name="eid"><br> <!--  parameter의 이름: -->
 		<input type = "submit" value = "삭제">
 	</form>
-</body>
-</html>
+<jsp:include page="footer.jsp"></jsp:include>

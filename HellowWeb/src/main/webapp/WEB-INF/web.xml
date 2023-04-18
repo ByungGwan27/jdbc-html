@@ -4,7 +4,24 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	id="WebApp_ID" version="4.0">
 	<display-name>HellowWeb</display-name>
+	
+	<!--  서블릿정보 등록. -->
+	<!--3번 FrontController로 이동   -->
+	<servlet>
+		<servlet-name>frontControl</servlet-name>
+		<servlet-class>com.yedam.FrontController</servlet-class>
+	</servlet>
+	
+	<!--1번 -> index.jsp로 이동   -->
+	<servlet-mapping>
+		<servlet-name>frontControl</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<!--  서버 restart -->
+	<!-- url-pattern에 .do가 들어가면 무조건 실행하겠다는 뜻. ex) *.do  -->
+	
+	
 	<welcome-file-list>
-		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>

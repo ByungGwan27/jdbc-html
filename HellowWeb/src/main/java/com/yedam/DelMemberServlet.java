@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.domain.Employee;
 import com.yedam.persistence.EmpDAO;
 
-@WebServlet("delMemberServlet")
+@WebServlet("/delMemberServlet")
 public class DelMemberServlet extends HttpServlet{
 	
 

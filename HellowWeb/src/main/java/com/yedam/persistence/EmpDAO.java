@@ -141,5 +141,35 @@ public class EmpDAO {
 		return list;
 	}
 	
+	// 정보수정.
+	public boolean updateMember(Employee emp) {
+		conn = DAO.getConnect();
+		
+		String sql = "UPDATE employees SET  first_name = ?\r\n"
+				+ "                    , last_name = ?\r\n"
+				+ "                    , email = ?\r\n"
+				+ "                WHERE employee_id = ?";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, emp.getFirstName());
+			psmt.setString(2, emp.getLastName());
+			psmt.setString(3, emp.getEmail());
+			psmt.setInt(4, emp.getEmployeeId());
+			
+			int r = psmt.executeUpdate();
+			System.out.println("처리된 건수: " + r);
+			if (r > 0) 
+				return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return false;
+	}
+	
+	
 	
 }

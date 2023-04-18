@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.domain.Employee;
 import com.yedam.persistence.EmpDAO;
 
-@WebServlet("searchMember")
+@WebServlet("/searchMember")
 public class GetMemberServlet extends HttpServlet {
 	
 	@Override

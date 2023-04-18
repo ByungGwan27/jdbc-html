@@ -78,6 +78,13 @@ public class EmpListServlet extends HttpServlet {
 	//delMemberServlet
 	//empList
 	
+	//등록화면.
+	//addMemberForm.do -> AddMemberFormControl.java
+	//WEB-INF/views/addForm.jsp
+	//등록처리.
+	//addMember.do -> AddMemberControl.java
+	//성공: main.do 실패: addMemberForm.do
+	
 	
 //	public static void main(String[] args) {
 //		
