@@ -5,7 +5,7 @@
 <jsp:include page="menu.jsp"></jsp:include>
 <jsp:include page="nav.jsp"></jsp:include>
 	<%
-		Employee emp = (Employee) request.getAttribute("empinfo");
+		Employee emp = (Employee) request.getAttribute("empInfo"); //GetMemberContorl의 setAttribute의 변수명과 맞춰주기
 	/*EmpDAO dao = new EmpDAO();
 	Employee result = dao.getEmp(Integer.parseInt(empId));
 	*/

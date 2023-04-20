@@ -28,7 +28,7 @@ public class FrontController extends HttpServlet{
 		map.put("/first.do", new FirstControl()); //first.do가 호출되면 '2번쨰(new InitServlet()())'안내 메세지 출력
 		map.put("/second.do", new SecondControl());
 		// 사원정보 상세페이지(getMember.jsp)
-		map.put("getMember.do", new GetMemberControl());
+		map.put("/getMember.do", new GetMemberControl());
 		// 사원정보 수정페이지(modifyMember.jsp)
 		map.put("/modifyMember.do", new ModifyMemberControl());
 		// 사원정보등록화면.(addMemberForm.jsp)
@@ -39,6 +39,10 @@ public class FrontController extends HttpServlet{
 		map.put("/deleteMember.do", new DeleteMemberControl());
 		//로그인 화면 (아이디/이메일 입력화면)
 		map.put("/loginForm.do", new LoginFormControl());
+		// 로그인 처리.
+		map.put("/login.do", new LoginControl());
+		// 로그아웃 처리
+		map.put("/logout.do", new LogoutControl());
 		
 	}
 	
@@ -54,8 +58,8 @@ public class FrontController extends HttpServlet{
 		String context = req.getContextPath(); //context: /HelloWeb -> 프로젝트 이름
 		String page = uri.substring(context.length());
 		
-		System.out.println(page);
-		System.out.println(map.get(page));
+		System.out.println("프론트 controller 페이지 : " + page);
+		System.out.println("프론트 controller 맵 : " + map.get(page));
 		
 		Control control = map.get(page); //값을 Object로 받음
 		control.exec(req, resp);

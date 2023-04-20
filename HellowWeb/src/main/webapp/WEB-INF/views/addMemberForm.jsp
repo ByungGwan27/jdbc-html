@@ -13,8 +13,10 @@
 <body>
 	<%
 	Employee result = (Employee) request.getAttribute("empInfo");
+	String lname = (String) session.getAttribute("sesInfo"); //loginControl 37번줄
   %>
 -->
+<p>Session: <%=lname %></p>
 	<form action="addMember.do" method="post">
 		firstName: <input type="text" name="fname"><br> <!--  parameter의 이름: -->
 		lastName: <input type="text" name="lname"><br>

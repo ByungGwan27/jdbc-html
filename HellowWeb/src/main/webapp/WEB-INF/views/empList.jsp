@@ -10,8 +10,12 @@
 	List<Employee> list = dao.getEmpList();*/
 	List<Employee> list = (List<Employee>) request.getAttribute("listInfo"); //MainControl내용, request가 가지고있는 listInfo값을 가져옴
 									  //getAttribute의 반환유형 : Object
-	
+	String fname = (String) request.getAttribute("reqInfo"); //loginControl 34번줄
+	String lname = (String) session.getAttribute("sesInfo"); //loginControl 37번줄
 	%>
+	
+	<p>Request: <%=fname %></p>
+	<p>Session: <%=lname %></p>
 	<table class="table">
 		<thead>
 			<tr><th>사원번호</th><th>이름</th><th>이메일</th></tr>
