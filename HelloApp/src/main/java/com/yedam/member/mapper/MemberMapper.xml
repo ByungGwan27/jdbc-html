@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.member.mapper.MemberMapper">
+	
+	<!-- resultType은 mybatis-config에서 재지정 -->
+	<select id="loginCheck" resultType="member"> 
+		SELECT * FROM members WHERE email = #{email} and password = #{password}
+	</select>
+	
+	<update id="updateMember" parameterType="int">
+		UPDATE members SET password = #{password}, phone = #{phone}, address = #{address}  WHERE email = #{email}
+	</update>
+	
+</mapper>
