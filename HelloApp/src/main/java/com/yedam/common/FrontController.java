@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.member.control.LoginControl;
 import com.yedam.member.control.LoginFormControl;
 import com.yedam.member.control.LogoutControl;
+import com.yedam.member.control.modifyMember;
 import com.yedam.member.control.modifyMemberControl;
 import com.yedam.notice.control.AddNoticeControl;
 import com.yedam.notice.control.GetNoticeControl;
