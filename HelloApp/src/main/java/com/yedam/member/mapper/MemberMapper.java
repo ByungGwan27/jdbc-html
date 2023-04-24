@@ -8,6 +8,6 @@ public interface MemberMapper {
 	public MemberVO loginCheck(MemberVO vo);
 	
 	//회원 정보 수정
-	public int updateMember(int memberId);
+	public int updateMember(MemberVO vo);
 	
 }

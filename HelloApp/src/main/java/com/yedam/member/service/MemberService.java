@@ -5,5 +5,5 @@ import com.yedam.notice.domain.NoticeVO;
 
 public interface MemberService {
 	public MemberVO loginCheck(MemberVO vo);
-	public boolean modifyNotice(int memberId);
+	public boolean modifyMember(MemberVO vo);
 }

@@ -16,13 +16,14 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO loginCheck(MemberVO vo) {
 		return mapper.loginCheck(vo);
 	}
-
+	
+	//회원 정보 수정
 	@Override
-	public boolean modifyNotice(int memberId) {
-		return mapper.updateMember(memberId) == 1;
+	public boolean modifyMember(MemberVO vo) {
+		return mapper.updateMember(vo) == 1;
 	}
 	
 	
-	
 
-}
+
+	}
