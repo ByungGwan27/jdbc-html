@@ -17,10 +17,13 @@ import com.yedam.member.control.LogoutControl;
 import com.yedam.member.control.modifyMember;
 import com.yedam.member.control.modifyMemberControl;
 import com.yedam.notice.control.AddNoticeControl;
+import com.yedam.notice.control.AddReplyControl;
 import com.yedam.notice.control.GetNoticeControl;
 import com.yedam.notice.control.ModifyNoticeControl;
 import com.yedam.notice.control.NoticeAddForm;
 import com.yedam.notice.control.NoticeListControl;
+import com.yedam.notice.control.RemoveReplyControl;
+import com.yedam.notice.control.ReplyListControl;
 
 public class FrontController extends HttpServlet {
 
@@ -54,6 +57,10 @@ public class FrontController extends HttpServlet {
 		//정보수정
 		map.put("modifyMember.do", new modifyMember());
 		
+		// 댓글정보
+		map.put("/replyList.do", new ReplyListControl());
+		map.put("/addReply.do", new AddReplyControl()); //아작스가 호출
+		map.put("/removeReply.do", new RemoveReplyControl());
 	}
 
 	@Override
@@ -72,6 +79,13 @@ public class FrontController extends HttpServlet {
 
 		if (viewPage.endsWith(".do")) {
 			resp.sendRedirect(viewPage);//.do면 tiles가 실행이 안되서 다시찾기
+			return;
+		}
+		
+		//4.24
+		if (viewPage.endsWith(".json")) {
+			resp.setContentType("text/json;charset=UTF-8");
+			resp.getWriter().print(viewPage.substring(0, viewPage.length() - 5));
 			return;
 		}
 
