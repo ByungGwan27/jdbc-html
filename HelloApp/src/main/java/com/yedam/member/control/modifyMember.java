@@ -19,7 +19,7 @@ public class modifyMember implements Control {
 		MemberVO vo = new MemberVO();
 		
 		String email = req.getParameter("email");
-		String password = req.getParameter("password");
+		String password = req.getParameter("pass");
 		String phone = req.getParameter("phone");
 		String address = req.getParameter("address");
 		

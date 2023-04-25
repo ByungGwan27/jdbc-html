@@ -20,4 +20,13 @@
 		delete from tbl_reply where reply_id = #{replyId}
 	</delete>
 	
+	<update id="updateReply" parameterType="reply">
+<!-- 	<update id="updateReply"> @Param사용시-->
+		UPDATE tbl_reply SET reply = #{reply} WHERE reply_id = #{replyId}
+	</update>
+	
+	<select id="searchReply" parameterType="int">
+		select * from tbl_reply where reply_id = #{replyId}
+	</select>
+	
 </mapper>

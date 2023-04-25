@@ -18,12 +18,17 @@ public class RemoveReplyControl implements Control {
 
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String id = req.getParameter("did");
-		
+		String rid = req.getParameter("rid"); //xhtp.send('rid')를 가져옴
 		ReplyService service = new ReplyServiceImpl();
-		boolean result = service.removeReply(Integer.parseInt(id));
+		String json = "";
 		
-		return "";
+		if (service.removeReply(Integer.parseInt(rid))) {
+			json = "{\"retCode\":\"Success\"}"; //뒤에 Success값은 임의 지정 가능 ex) ok, yes...
+		} else {
+			json = "{\"retCode\":\"Fail\"}";
+		}
+		
+		return json + ".json";
 	}
 
 }
