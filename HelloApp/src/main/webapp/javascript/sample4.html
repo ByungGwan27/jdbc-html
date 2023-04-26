@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<p>sample4.html</p>
+	<ul id="list">
+	 <li>1, kildong, Hong, 2334</li>
+	</ul>
+	
+	<script>
+	 let xht = new XMLHttpRequest(); // 비동기방식처리.
+	 xht.open('get', 'MOCK_DATA.json');
+	 xht.send();
+	 xht.onload = function () {
+		 //console.log(JSON.parse(xht.response));
+	 }
+	 
+	 //비동기 방식의 코드를 동기 방식으로 하는 과정. chain형식
+	 //.then 매개값을 함수로 받음. 성공하면 실행할 함수, 실패하면 실행할 함수
+	 // fetch().then(function() {}, function() {})
+	/*  fetch('MOCK_DATA.json')
+	 .then(function(resolve) {
+		 console.log('success'); //페이지가 없어도 성공처리, 네트워크 연결이 안되어야 함
+		 return resolve.texts(); // error발생
+	 }, function() {
+		 console.log('error');
+	 })
+	 .then(function(resilt) {
+		 console.log('success', result);
+	 }, function(error) {
+		 console.log('error', error);
+	 }); */
+	 
+	 fetch('MOCK_DATA.json')
+	 /* .then(function(resolve) { return resolve.text(); }) */ //아래 문장으로 줄일 수 있음
+	 .then(resolve => resolve.json() ) // text()
+	 .then(result => {
+		 console.log(result);
+		 for (let i = 0; i < result.length; i++) {
+			 // 코드 작성. "list"에 li 작성하기
+			 let val = document.getElementById('list').value;
+			 let li = document.createElement('li');
+			 li.innerText = document.querySelector(result).value
+			 val.append(li);
+			 document.getElementById('list').append(val);
+		 }
+	 })
+	 .catch(error => console.log(error) ) //예외가 발생하면 catch를 실행
+	</script>
+</body>
+</html>
