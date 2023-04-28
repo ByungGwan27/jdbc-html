@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.common.Control;
 import com.yedam.prod.control.ProdListControl;
 import com.yedam.prod.control.ProdMainControl;
+import com.yedam.prod.control.ProductAddControl;
+import com.yedam.prod.control.ProductUploadControl;
 
 public class FrontController extends HttpServlet {
 
@@ -32,6 +34,9 @@ public class FrontController extends HttpServlet {
 		// 메인페이지.
 		map.put("/prodMain.do", new ProdMainControl());
 		
+		// ckedior 관련.
+		map.put("/productAdd.do", new ProductAddControl());
+		map.put("/prodUpload.do", new ProductUploadControl());
 		
 		map.put("/prodList.do", new ProdListControl());
 
