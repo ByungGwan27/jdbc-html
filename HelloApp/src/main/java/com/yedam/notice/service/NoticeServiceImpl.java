@@ -10,7 +10,7 @@ import com.yedam.notice.mapper.NoticeMapper;
 
 public class NoticeServiceImpl implements NoticeService {
 
-	SqlSession session = DataSource.getInstance().openSession(true);
+	SqlSession session = DataSource.getInstance().openSession(true); //자동 커밋
 	NoticeMapper mapper = session.getMapper(NoticeMapper.class);
 	
 	//조회에서 페이징 조회로 바뀜
@@ -22,7 +22,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public boolean addNotice(NoticeVO vo) {
-		return mapper.insertNotice(vo) == 1;
+		return mapper.insertNotice(vo) == 1; //1건 입력되면 true, 아니면 false
 	}
 
 	@Override
@@ -38,8 +38,8 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public NoticeVO getNotice(int noticeId) {
 		// 조회수 증가.
-		mapper.updateCount(noticeId);
-		return mapper.searchNotice(noticeId);
+		mapper.updateCount(noticeId);  //조회수 증가시키고
+		return mapper.searchNotice(noticeId); //증가시킨 조회수 조회
 	}
 	
 	@Override

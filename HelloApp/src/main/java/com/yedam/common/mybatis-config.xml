@@ -3,21 +3,29 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<!-- db.properties를 만들고 해당 구문을 넣어 참조시킬것 -->
 	<properties resource="com/yedam/common/db.properties"></properties>
 	<settings>
+		<!-- mybatis -> 매퍼 설정 -> settings에 카멜케이스 복사해서 true로 수정-->
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
+	
+	<!-- mybatis -> 매퍼설정 -> 'typeAliases'에서 복사 -->
 	<typeAliases>
+		<!--  type명을  alias 명으로 줄여 쓰게 해줌-->
 		<typeAlias alias="employee" type="com.yedam.domain.Employee" />
 		<typeAlias alias="notice" type="com.yedam.notice.domain.NoticeVO" />
 		<typeAlias alias="member" type="com.yedam.member.domain.MemberVO" />
 		<typeAlias alias="event" type="com.yedam.member.domain.EventVO" />
 		<typeAlias alias="reply" type="com.yedam.notice.domain.ReplyVO" />
 	</typeAliases>
+	
+	<!-- 이 안에 여러가지 환경 정보를 넣을 수 있음. -->
 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
+			<!-- DB로그인 접속 정보 들어가는 곳, db.properties파일을 만들자 -->
 			<dataSource type="POOLED">
 				<property name="driver" value="${driver}" />
 				<property name="url" value="${url}" />

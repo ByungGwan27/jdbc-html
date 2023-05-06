@@ -37,6 +37,9 @@ public class FrontController extends HttpServlet {
 	public FrontController() {
 		map = new HashMap<>();
 	}
+	
+	//환경파일 정보 넘겨주려면 읽어올때 ServletConfig 객체가
+	//가지고있는 정보중에getinitParameter로 값받음
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -47,7 +50,9 @@ public class FrontController extends HttpServlet {
 
 		// 공지사항.
 		map.put("/noticeList.do", new NoticeListControl());
+		//공지사항 등록page여는 것
 		map.put("/noticeAddForm.do", new NoticeAddForm());
+		// 공지사항 기능
 		map.put("/addNotice.do", new AddNoticeControl());
 		map.put("/getNotice.do", new GetNoticeControl());
 		map.put("/modifyNotice.do", new ModifyNoticeControl());
@@ -84,7 +89,8 @@ public class FrontController extends HttpServlet {
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//버튼을 누를 때 서비스가 실행됨
+		// service는 버튼을 누를 때 서비스가 실행됨
+//		req.setCharacterEncoding("UTF-8");
 		req.setCharacterEncoding(encoding);
 
 		String uri = req.getRequestURI();
@@ -92,13 +98,15 @@ public class FrontController extends HttpServlet {
 		String path = uri.substring(context.length()); //.do를 받아옴
 		System.out.println(path);
 
+		//페이지 정보 받는곳
 		Control control = map.get(path/*uri*/); //인터페이스와 구현클래스 확인. 어떤 기능만구현할건지
-		String viewPage = control.execute/*실행*/(req/*페이지 요청정보*/, resp);
+		String viewPage = control.execute/*실행*/(req/*페이지 요청정보*/, resp); //이전에는 control 안에서 포워딩 처리를함
 		System.out.println(viewPage);
 
-		if (viewPage.endsWith(".do")) {
+		//.do 처리 방법
+		if (viewPage.endsWith(".do")) { //끝에 .do가 넘어오면 재실행
 			resp.sendRedirect(viewPage);//.do면 tiles가 실행이 안되서 다시찾기
-			return;
+			return; //메소드의 종료
 		}
 		
 		//4.24
@@ -109,6 +117,7 @@ public class FrontController extends HttpServlet {
 		}
 
 		// 페이지 재지정. tiles면 실행
+		// 페이지 재지정. 페이지 정보 받아서 forwarding하는곳
 		RequestDispatcher rd = req.getRequestDispatcher(viewPage);
 		rd.forward(req, resp);
 

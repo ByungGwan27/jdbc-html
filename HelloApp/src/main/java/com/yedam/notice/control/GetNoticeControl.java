@@ -26,6 +26,7 @@ public class GetNoticeControl implements Control {
 		NoticeService service = new NoticeServiceImpl();
 		NoticeVO vo = service.getNotice(Integer.parseInt(nid));
 		req.setAttribute("noticeInfo", vo);
+		//req.setAttribute("noticeInfo", service.getNotice(Integer.parseInt(nid))); 같은 문장
 		req.setAttribute("pageNum", page);
 		
 		//첨부파일이 있으면...?

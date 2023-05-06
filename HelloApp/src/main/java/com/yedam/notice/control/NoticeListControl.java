@@ -26,14 +26,15 @@ public class NoticeListControl implements Control {
 		
 		NoticeService service = new NoticeServiceImpl();
 		int total = service.totalCount();
-		List<NoticeVO> list = service.noticeList(page);
+		List<NoticeVO> list = service.noticeList(page); //목록을 가져오고 결과값을 넣음
 
 		PageDTO dto = new PageDTO(page, total);
-		req.setAttribute("list", list);
+		req.setAttribute("list"/*list라는 어트리뷰트*/, list); //요청 정보를 담아 아래 return 페이지로 보내줌
+		//FrontController의 viewPage변수에 들어감
 		req.setAttribute("pageInfo", dto);
 
-//		return "WEB-INF/views/notice/noticeList.jsp";
-		return "notice/noticeList.tiles";
+//		return "WEB-INF/views/notice/noticeList.jsp"; //tilse적용 안하겠다는 뜻(확장자가 jsp이기 때문)
+		return "notice/noticeList.tiles"; //tiles라는 것으로 주소 재지정
 	}
 
 }

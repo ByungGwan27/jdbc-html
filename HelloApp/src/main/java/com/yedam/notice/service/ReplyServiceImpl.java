@@ -10,7 +10,7 @@ import com.yedam.notice.mapper.ReplyMapper;
 
 public class ReplyServiceImpl implements ReplyService {
 	
-	SqlSession session = DataSource.getInstance().openSession(true);
+	SqlSession session = DataSource.getInstance().openSession(true); //자동 커밋
 	ReplyMapper mapper = session.getMapper(ReplyMapper.class);
 	
 	@Override

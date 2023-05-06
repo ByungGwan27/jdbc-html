@@ -9,7 +9,7 @@
 	<listener>
 		<listener-class>org.apache.tiles.extras.complete.CompleteAutoloadTilesListener</listener-class>
 	</listener>
-
+	<!--  'servlet-mapping'에 '*.tiles' 요청이 들어오면 Servlet 실행-->
 	<servlet>
 		<servlet-name>Tiles Dispatch Servlet</servlet-name>
 		<servlet-class>org.apache.tiles.web.util.TilesDispatchServlet</servlet-class>
@@ -19,7 +19,7 @@
 		<url-pattern>*.tiles</url-pattern>
 	</servlet-mapping>
 
-	<!-- 서블릿정보 등록. -->
+	<!-- 서블릿정보 등록, FrontController의 언어를 UTF-8로 바꿔줌 -->
 	<servlet>
 		<servlet-name>frontControl</servlet-name>
 		<servlet-class>com.yedam.common.FrontController</servlet-class>
@@ -28,6 +28,7 @@
 			<param-value>UTF-8</param-value>
 		</init-param>
 	</servlet>
+	<!-- UTF-8로 바꾸는것임 init-param -->
 	<servlet-mapping>
 		<servlet-name>frontControl</servlet-name>
 		<url-pattern>*.do</url-pattern>

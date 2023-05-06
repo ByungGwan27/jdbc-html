@@ -8,16 +8,17 @@ import com.yedam.notice.domain.NoticeVO;
 public interface NoticeMapper {
 	public Employee getEmp(int empId);
 	public List<Employee> empList();
-	public int delEmp(int empId);
+	public int delEmp(int empId); /*메소드이름과 타입형태가 메퍼에 있는것과 같아야함*/
 	public int addEmp(Employee emp);
+	
 	// 공지사항. CRUD: 입력,조회,수정,삭제,목록
 	public List<NoticeVO> noticeList();
 	// 페이징 리스트.
-	public List<NoticeVO> noticeWithPage(int page);
-	public int insertNotice(NoticeVO vo);
-	public int updateNotice(NoticeVO vo);
-	public int deleteNotice(int noticeId);
-	public NoticeVO searchNotice(int noticeId);
+	public List<NoticeVO> noticeWithPage(int page); //목록 가져오기
+	public int insertNotice(NoticeVO vo); //입력
+	public int updateNotice(NoticeVO vo); // 수정
+	public int deleteNotice(int noticeId); //삭제
+	public NoticeVO searchNotice(int noticeId); //단건조회
 	// 조회수증가.
 	public int updateCount(int noticeId);
 	

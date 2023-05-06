@@ -18,9 +18,10 @@ public class SampleExe3 {
 		
 		
 		//4.21 주석처리
+		//서비스 로직 테스트
 //		NoticeService service = new NoticeServiceImpl();
 
-//		for (NoticeVO vo : service.noticeList()) {
+//		for (NoticeVO vo : service.noticeList()) {//목록가져오기
 //			System.out.println(vo);
 //		}
 		
