@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 public class EventVO {
 	private String title;
 	private String startDate;
