@@ -41,7 +41,7 @@ public class AddReplyControl implements Control {
 			//json = "{\"retCode\":\"Success\"";
 			// {"retCode":"Success", "data": vo}
 			map.put("retCode", "Success");
-			map.put("data", vo);
+			map.put("ddata", vo);
 			
 		} else {
 			// {"retCode":"Fail"}

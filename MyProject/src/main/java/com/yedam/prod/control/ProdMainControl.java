@@ -21,7 +21,6 @@ public class ProdMainControl implements Control {
 		List<ProductVO> result = service.getProductAllInfo();
 		
 		req.setAttribute("Alllist", result);
-		
 		return "prod/prodMain.tiles";
 	}
 

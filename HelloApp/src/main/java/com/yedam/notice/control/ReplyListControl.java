@@ -36,6 +36,7 @@ public class ReplyListControl implements Control {
 			
 		}
 		json += "]";
+		//System.out.println("json테스트"+json+"종료");
 		return json + ".json"/*frontcontroller 구분하기 위해*/;
 	}
 
