@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <h3>공지사항등록 페이지.</h3>
+<!-- multipart/form-data는 파일 업로드 할 때 사용되는 인코딩 방식 -->
 
 <form action="addNotice.do" method="post" enctype="multipart/form-data">
   <table class="table">

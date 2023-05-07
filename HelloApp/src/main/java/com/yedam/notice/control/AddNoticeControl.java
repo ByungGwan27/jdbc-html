@@ -30,23 +30,25 @@ public class AddNoticeControl implements Control {
 		// 실제경로 찾기 = getRealPath(폴더명); 업로드하기 = getServletContext()
 		String saveDir = req.getServletContext().getRealPath("images");
 		
-		int maxSize = 5 * 1024 * 1024; //5는 5MB를 뜻함 총 용량
-		String encoding = "UTF-8";
-		DefaultFileRenamePolicy rn = new DefaultFileRenamePolicy(); //같은 파일명을 사용시 파일명을 바꿔줌
+		int maxSize = 5 * 1024 * 1024; //총 용량 5MB
+		String encoding = "UTF-8"; // 전송할 데이터의 인코딩 방식
+		DefaultFileRenamePolicy rn = new DefaultFileRenamePolicy(); //같은 파일명을 사용시 파일명을 바꿔주는 클래스
 		MultipartRequest multi //
 				= new MultipartRequest(req, saveDir, maxSize, encoding, rn);
 		
-		Enumeration<?> enu = multi.getFileNames();
+		//업로드된 파일의 이름을 가져와서 출력
+		Enumeration<?> enu = multi.getFileNames(); //?는 모든 유형, 제한되지 않은 유형을 가진 배열. 스레드에 안전한 구조(Vector, Hashtable이 주로 사용), List 데이터를 받아 새로운 구조로 다시 만듦, 유지보수등의 유연성이 좋음
 		while (enu.hasMoreElements()) {
 			String file = (String) enu.nextElement();
 			System.out.println("file: " + file);
 		}
+		
 		// db parameter읽어오기
 		String writer = multi.getParameter("writer"); //"" db에 있는 값들
-		String subject = multi.getParameter("subject");
+		String subject = multi.getParameter("subject"); //필드명 적으면됨(jsp)
 		String title = multi.getParameter("title");
 		// 서버에 업로드되고나면 바뀐 이름을 가지고와야됨
-		String attach = multi.getFilesystemName("attach");
+		String attach = multi.getFilesystemName("attach"); //서버에 저장된 파일의 이름을 가져오는 메서드
 		
 		// 사용자의 입력값을 NoticeVO 입력.
 		NoticeVO vo = new NoticeVO();

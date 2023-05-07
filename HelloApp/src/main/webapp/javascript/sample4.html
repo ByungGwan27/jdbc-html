@@ -20,32 +20,54 @@
 	 
 	 //비동기 방식의 코드를 동기 방식으로 하는 과정. chain형식
 	 //.then 매개값을 함수로 받음. 성공하면 실행할 함수, 실패하면 실행할 함수
-	 // fetch().then(function() {}, function() {})
-	/*  fetch('MOCK_DATA.json')
+	 // fetch().then(function() {}, function() {}...)
+	 
+	 //선생님이랑 같이 쓴 내용 틀린 것 같아서 밑에 내용으로 수정
+	/* fetch('MOCK_DATA.json')
 	 .then(function(resolve) {
 		 console.log('success'); //페이지가 없어도 성공처리, 네트워크 연결이 안되어야 함
 		 return resolve.texts(); // error발생
 	 }, function() {
 		 console.log('error');
 	 })
-	 .then(function(resilt) {
+	 .then(function(result) {
 		 console.log('success', result);
 	 }, function(error) {
 		 console.log('error', error);
 	 }); */
 	 
+	 // 수정한 내용
+	/*  fetch('MOCK_DATA.json')
+	 .then(function(response) {
+		 console.log('success');
+		 return response.text();
+	 }, function() {
+		 console.log('error');
+	 })
+	 .then(function(result) {
+		 console.log('success', result);
+	 }, function(error) {
+		 console.log('error', error);
+	 }); */
+	 
+	 console.log("구분선ㅡㅡㅡㅡㅡㅡㅡ");
+	 
 	 fetch('MOCK_DATA.json')
 	 /* .then(function(resolve) { return resolve.text(); }) */ //아래 문장으로 줄일 수 있음
-	 .then(resolve => resolve.json() ) // text()
-	 .then(result => {
+	 .then(resolve => resolve.json() ) // text() -> 'MOCK_DATA'를 json 함수를 이용하여 js객체로 변환
+	 .then(result => { //result는 객체로 변환한 것을 담은 내용
 		 console.log(result);
+		 let val = document.getElementById('list'); // 변환된 객체를 이용하여 'list' 아이디를 가진 HTML 요소에 동적으로 리스트를 추가 해줌
 		 for (let i = 0; i < result.length; i++) {
 			 // 코드 작성. "list"에 li 작성하기
-			 let val = document.getElementById('list').value;
+			 
 			 let li = document.createElement('li');
-			 li.innerText = document.querySelector(result[i]).value
+			 li.innerText = result[i].id + ', ' + 
+			 				result[i].first_name + ', ' + 
+			 				result[i].last_name + ', ' + 
+			 				result[i].email;
+			 
 			 val.append(li);
-			 document.getElementById('list').append(val);
 		 }
 	 })
 	 .catch(error => console.log(error) ) //예외가 발생하면 catch를 실행

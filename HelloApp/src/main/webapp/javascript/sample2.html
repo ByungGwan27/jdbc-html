@@ -33,8 +33,16 @@
 			let val = document.getElementById('fruit').value;
 			let li = document.createElement('li'); // <li></li> 태그 만들기
 			li.innerText = val;
+			
+			 // 새롭게 추가된 li 요소에 클릭 이벤트 핸들러 등록
+			 // li.addEventListener('click', function() {
+			 //   li.remove();
+			 // })
+			  
+			
 			document.getElementById('list').append(li);
 		})
+		
 		
 		// 2개 값을 등록.
 		// id값 tBtn에 click 등록.
@@ -43,14 +51,16 @@
 		//					  re을 tlist의 하위에 부착.
 		
 		
-		document.getElementById('tBtn').addEventListener('click', function () {
-			let tr = document.createElement('tr');
-			let td = document.createElement('td');
-			td.innerText = document.querySelector('input[name="userId"]').value
-			tr.append(td);
-			td = document.createElement('td');
-			td.innerText = document.querySelector('input[name="userName"]').value
-			tr.append(td);
+		//document.getElementById('tBtn').addEventListener('click', () => {
+		document.getElementById('tBtn').addEventListener('click', function() {
+			let tr = document.createElement('tr');//<tr> 닫기는건 나중에
+			let td = document.createElement('td');//<td>
+			td.innerText = document.querySelector('input[name="userId"]').value//<td>value
+			tr.append(td);//<tr><td>value
+			
+			td = document.createElement('td');//<td>
+			td.innerText = document.querySelector('input[name="userName"]').value//<td>value2
+			tr.append(td);//<tr><td>value <td>value2
 			document.getElementById('tlist').append(tr);
 		})
 		

@@ -6,14 +6,23 @@
 </head>
 <body>
 	<ul id="list"></ul>
-	
+
 	<table border='1'>
-	 <thead><tr><th>id</th><th>fname</th><th>lname</th><th>삭제</th></tr></thead>
-	 <tbody id="tlist">
-	  <!-- <tr><td>value</td></tr> -->
-	 </tbody>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>fname</th>
+				<th>lname</th>
+				<th>삭제</th>
+			</tr>
+		</thead>
+		
+		<!-- 2번 내용 -->
+		<tbody id="tlist">
+			<!-- <tr><td>value</td>...</tr> -->
+		</tbody>
 	</table>
-	
+
 	<script>
 	 // jason 포맷의 데이터 활용.
 	 // data.txt(사용자 정보만 있는 텍스트)
@@ -37,33 +46,40 @@
 	 
 	 // 비동기방식 처리 => 대표적 XMLHttpRequest, fetch
 	 let xhtp = new XMLHttpRequest();
-	 xhtp.open('get', 'MOCK_DATA.json'/*해당 파일이 있는 위치*/); //메소드. 서버에 요청할 페이지 정보.
+	 xhtp.open('get', 'MOCK_DATA.json'/*해당 파일이 있는 위치*/); //메소드. 서버에 요청할 페이지 정보. AJAX 요청을 수행하기 위한 방법, open메소드는 초기화 내용 설정
 	 xhtp.send(); //실제 페이지 요청
 	 xhtp.onload = function () { /*속성 -> on 붙은건 event와 관련된 속성*/
 		 console.log(xhtp);
 		 let tlist = document.getElementById('tlist');
 		 
-		 let result = JSON.parse(xhtp.response); // json -> object
+		 let result = JSON.parse(xhtp.response); // json -> object /여기선 MOCK_DATA파일 정확힌 배열로 바뀐듯?
 		 for (let i=0; i<result.length; i++) {
 			 //console.log(result[i]);
 			 //표 형식으로 만들기
 			 let tr = document.createElement('tr');
+			 
 			 let td = document.createElement('td');
 			 td.innerText = result[i].id;
 			 tr.append(td); // <tr><td>...</td></tr> tr안에 td를 넣겠음
+			 
 			 td = document.createElement('td');
 			 td.innerText = result[i].first_name;
 			 tr.append(td);
+			 
 			 td = document.createElement('td');
 			 td.innerText = result[i].last_name;
+			 tr.append(td);
 			 
-			tr.append(td);
 			 // button. <td><button>삭제</button></td>
+			 //버튼 생성
 			 let btn = document.createElement('button');
+			 //버튼에 이벤트 추가
 			 btn.addEventListener('click', function () {
-				 btn.parentElement.parentelement.remove(); // 제거.
+				 btn.parentElement.parentElement.remove(); // 제거.
 			 })
 			 btn.innerText = '삭제';
+			 
+			 //버튼 동적으로 붙이기
 			 td = document.createElement('td');
 			 td.append(btn);
 			 tr.append(td);

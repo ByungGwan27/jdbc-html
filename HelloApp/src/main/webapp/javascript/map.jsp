@@ -39,7 +39,7 @@
 		marker.setMap(map);
 		
 		// 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-		var iwContent = '<div style="padding:5px;">' +fN+ '<br><a href="https://map.kakao.com/link/map/${param.facilityName},${param.lat},${param.lng}" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/${param.facilityName},${param.lat},${param.lng}" style="color:blue" target="_blank">길찾기</a></div>', 
+		var iwContent = '<div style="padding:5px;">' + fN + '<br><a href="https://map.kakao.com/link/map/' + fN + ',${param.lat},${param.lng}" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/' + fN + ',' + ${param.lat} + ',' + ${param.lng} + '" style="color:blue" target="_blank">길찾기</a></div>', 
 			iwPosition = new kakao.maps.LatLng(lat, lng); //인포윈도우 표시 위치입니다
 			
 
