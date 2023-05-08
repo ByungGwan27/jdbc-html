@@ -73,6 +73,7 @@
   </tr>
  </thead>
  <tbody id="tlist">
+ 	<!-- 댓글 본문 -->
  </tbody>
 </table>
 
