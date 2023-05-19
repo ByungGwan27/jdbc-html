@@ -24,10 +24,18 @@
 		<!-- 데이터이름이랑 맞춰주기 --> 
 	</insert>
 
-	<!-- 공지사항관련. -->
-	<select id="noticeList" resultType="notice">
+	<!--공지사항관련. 5.19 주석-->
+	<!-- <select id="noticeList" resultType="notice">
 		select * from tbl_notice order by 1 desc
+	</select> -->
+	
+	<!-- 5.19 공지사항관련. -->
+	<select id="noticeList" resultType="notice">
+		<![CDATA[
+		select * from tbl_notice WHERE rownum < 10 order by 1 desc
+		]]>
 	</select>
+	
 	<select id="noticeWithPage" resultType="notice">
 		<!-- CDATA는 '<'같은걸 쓰기 위해서 -->
 		<![CDATA[

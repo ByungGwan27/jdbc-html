@@ -30,6 +30,18 @@
         //console.log($(this).serialize()); //this는 form을 가르킴. 여기선 아스키값을 가르키기 떄문에 콘솔에 이상한 영어가 뜸
         console.log(decodeURIComponent($(this).serialize()));
 				$("#text").html($(this).serialize());	// 입력받은 데이터를 직렬화하여 나타냄.
+				
+				// ajax call. //get방식 요청
+				$.ajax($(this).attr('action') + "?" + $(this).serialize())
+				.done(function(msg) {
+					console.log(msg);
+				})
+				.fail(function(err) {
+					console.log(err);
+				})
+				.always(function() {
+					console.log("final.")
+				})
 			});
       //$('input[name="nickname"]').val() 이거 대신 serialize를 사용
 		});
@@ -44,7 +56,7 @@
 	
   <!-- 2번 -->
   <h1>직렬화(serialization)</h1>
-	<form action="/examples/media/request.php">
+	<form action="/AjaxServlet">
 		자신의 별명을 적어주세요 : <br>
 		<input type="text" name="nickname" value="홍길동"><br><br>
 

@@ -19,6 +19,12 @@ public class NoticeServiceImpl implements NoticeService {
 //		return mapper.noticeList();
 		return mapper.noticeWithPage(page);
 	}
+	
+	//5.19 14:16
+	
+	public List<NoticeVO> noticeListJson() {
+		return mapper.noticeList();
+	}
 
 	@Override
 	public boolean addNotice(NoticeVO vo) {
