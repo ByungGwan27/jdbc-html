@@ -49,7 +49,18 @@
 	</select>
 
 
+	<!-- <insert id="insertNotice" parameterType="notice">
+		insert into tbl_notice (notice_id, notice_writer, notice_title,
+		notice_subject, attach_file)
+		values(notice_seq.nextval, #{noticeWriter}, #{noticeTitle}, #{noticeSubject}, #{attachFile})
+		#{}안에는 필드타입으로
+	</insert> -->
+	
+	<!-- 5.19 16:15 -->
 	<insert id="insertNotice" parameterType="notice">
+	 <selectKey keyProperty="noticeId" resultType="int" order="BEFORE">
+	 	SELECT notice_seq.nextval from dual
+	 </selectKey>
 		insert into tbl_notice (notice_id, notice_writer, notice_title,
 		notice_subject, attach_file)
 		values(notice_seq.nextval, #{noticeWriter}, #{noticeTitle}, #{noticeSubject}, #{attachFile})

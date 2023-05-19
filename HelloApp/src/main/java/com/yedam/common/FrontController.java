@@ -22,7 +22,9 @@ import com.yedam.member.control.modifyMemberControl;
 import com.yedam.notice.control.AddNoticeControl;
 import com.yedam.notice.control.AddReplyControl;
 import com.yedam.notice.control.GetNoticeControl;
+import com.yedam.notice.control.GetNoticeJsonControl;
 import com.yedam.notice.control.ModifyNoticeControl;
+import com.yedam.notice.control.ModifyNoticeFileControl;
 import com.yedam.notice.control.ModifyReplyControl;
 import com.yedam.notice.control.NoticeAddForm;
 import com.yedam.notice.control.NoticeDelJsonControl;
@@ -52,12 +54,20 @@ public class FrontController extends HttpServlet {
 
 		// 공지사항.
 		map.put("/noticeList.do", new NoticeListControl());
+		
+		//제이쿼리수업
 		map.put("/noticeListJson.do", new NoticeListJsonControl());// json
 		// 공지사항 삭제
 		map.put("/delNoticeJson.do", new NoticeDelJsonControl());
+		// 공지사항 수정
+		map.put("/getNoticeJson.do", new GetNoticeJsonControl());
+		// 파일수정
+		map.put("/modifyNoticeFile.do", new ModifyNoticeFileControl());
+		
+		
 		//공지사항 등록page여는 것
 		map.put("/noticeAddForm.do", new NoticeAddForm());
-		// 공지사항 기능
+		// 공지사항 기능//제이쿼리 추가
 		map.put("/addNotice.do", new AddNoticeControl());
 		// 공지사항 상세
 		map.put("/getNotice.do", new GetNoticeControl());
