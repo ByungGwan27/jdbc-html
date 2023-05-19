@@ -1,0 +1,169 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQuery Element Access</title>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script>
+
+    // $(function() {
+		// 	$("button").on("click", function() {
+
+    //     // // id가 "list"인 요소의 자손 요소 중에서 <li>요소를 모두 선택한 후에,
+    //     // // 그 중에서 두 번째 요소의 값을 설정함
+    //     // $("list").find("li").eq(1).html("두 번째 아이템을 선택했어요!!");
+
+		// 		$("#list")			// id가 "list"인 요소의 자손 요소 중에서
+		// 			.find("li")		// <li>요소를 모두 선택한 후에,
+		// 			.eq(1).html("두 번째 아이템을 선택했어요!!")	// 그 중에서 두 번째 요소의 값을 설정함.
+		// 			.end()			// 다시 id가 "list"인 요소의 자손 요소 중에서 <li>요소를 모두 선택한 후에,
+		// 			.eq(2).html("세 번째 아이템도 선택했어요!!");	// 그 중에서 세 번째 요소의 값을 설정함.
+    //       console.log($('#list').find('li').eq(1).end().eq(2));
+		// 	});
+		// });
+
+    //2번
+    // $(function() {
+		// 	$("#getter").on("click", function() {
+		// 		var size = "너비는 " + $("#box").width() + "px이고, 높이는 "
+		// 			+ $("#box").height() + "px입니다.<br>";
+		// 		$("#text").html(size);
+		// 	});
+		// 	$("#setter").on("click", function() {
+		// 		w = $("#box").width();
+		// 		h = $("#box").height();
+		// 		$("#box").width(w/2).height(h/2);
+
+		// 		var size = "너비는 " + $("#box").width() + "px이고, 높이는 "
+		// 			+ $("#box").height() + "px로 변경되었습니다.<br>";
+		// 		$("#text").html(size);
+		// 	});
+		// });
+
+    //3번
+    // $(function() {
+		// 	$("button").on("click", function() {
+		// 		// <img>요소의 src 속성값을 읽어오는 getter 메소드
+		// 		var imgSrc = $("img").attr("src");
+    //     console.log(imgSrc);
+		// 		// <img>요소의 src 속성값을 새로운 값으로 설정하는 setter 메소드
+		// 		$("img").attr("src", "/examples/images/img_flag.png");
+		// 	});
+		// });
+
+    //4번
+    // $(function() {
+		// 	$("button").on("click", function() {
+		// 		//$("#list").append("<li>새로 추가된 아이템이에요!</li>");
+    //     $("<li>새로 추가된 아이템이에요!</li>").appendTo("#list"); //목적과 target이 바뀜
+		// 	});
+		// });
+
+    //5번
+    // $(function() {
+		// 	$("button").on("click", function() {
+		// 		// id가 "firstItem"인 요소를 복사하여 id가 "list"인 요소에 추가함.
+		// 		//$("#firstItem").clone().appendTo("#list");
+    //     //$("li:eq(1)").clone().css('background', 'yellow').appendTo("#list"); // 복사하면서 css추가
+    //     $("li:eq(0)").clone().css('background', 'yellow').appendTo("#list");
+		// 	});
+		// });
+
+    //6번
+    // $(function() {
+		// 	$("button").on("click", function() {
+		// 		// class가 "item"인 모든 요소를 id가 "firstItme"인 요소로 대체함.
+    //     //$(".item").replaceWith($("#firstItem"));
+		// 		//$(".item").replaceWith($("#firstItem").clone());
+    //     $(".item").replaceAll($("#firstItem").clone());
+		// 	});
+		// });
+
+    //7번
+    $(function() {
+			var data;
+			$("#detachBtn").on("click", function() {
+				data = $(".content").remove('.target');	// class가 "content"인 요소를 모두 삭제함.
+			});
+			$("#restoreBtn").on("click", function() {
+				$("#cont").append(data);	// detach() 메소드로 삭제되었던 모든 요소를 다시 추가함.
+			});
+
+      $('.target').on('click', function() {
+        console.log(this);
+      });
+      
+		});
+
+  </script>
+</head>
+
+<body>
+
+  <!-- <h1>메소드 체이닝</h1>
+  <ul id="list">
+    <li>첫 번째 아이템이에요!</li>
+    <li>두 번째 아이템이에요!</li>
+    <li>세 번째 아이템이에요!</li>
+  </ul>
+  <button>텍스트 변경</button> -->
+
+  <!-- 2번 -->
+  <!-- <h1>.width() 메소드와 .height() 메소드</h1>
+	<p>아래의 버튼을 누르면 다음 div 요소의 크기를 읽어오거나 설정할 수 있어요!!</p>
+	<button id="getter">크기 읽어오기!</button>
+	<button id="setter">크기 줄이기!</button><br><br>
+	<div id="box" style="width: 400px; height: 200px; background-color: yellow"></div>
+	<p id="text"></p> -->
+
+  <!-- 3번 -->
+  <!-- <h1>.attr() 메소드</h1>
+	<p>아래의 버튼을 누르면 다음 이미지를 변경할 수 있어요!!</p>
+	<button>src 속성 변경!</button><br><br>
+	<img src="/examples/images/img_flower.png" style="width:320px; height:214px; border: 1px solid black"> -->
+
+  <!-- 4번 -->
+  <!-- <h1>.append() 메소드</h1>
+	<ul id="list">
+		<li>첫 번째 아이템이에요!</li>
+		<li>두 번째 아이템이에요!</li>
+		<li>세 번째 아이템이에요!</li>
+	</ul>
+	<button>아이템 추가</button> -->
+
+  <!-- 5번 -->
+  <!-- <h1>.clone() 메소드</h1>
+	<ul id="list">
+		<li id="firstItem">첫 번째 아이템이에요!</li>
+		<li>두 번째 아이템이에요!</li>
+		<li>세 번째 아이템이에요!</li>
+	</ul>
+	<button>아이템 복사</button> -->
+
+  <!-- 6번 -->
+  <!-- <h1>.replaceWith() 메소드</h1>
+	<ul>
+		<li class="item" id="firstItem">첫 번째 아이템이에요!</li>
+		<li class="item" id="secondItem">두 번째 아이템이에요!</li>
+		<li class="item" id="thirdItem">세 번째 아이템이에요!</li>
+	</ul>
+	<button>아이템 대체</button> -->
+
+  <!-- 7번 -->
+  <h1>.detach() 메소드</h1>
+	<div id="container">
+		<div>첫 번째 컨텐츠에요!</div>
+		<div class="content target" onclick="fnc();">두 번째 컨텐츠에요!</div>
+		<div class="content target">세 번째 컨텐츠에요!</div>
+	</div>
+  <h2>New List</h2>
+  <div id="cont"></div>
+	<br>
+	<button id="detachBtn">div 요소 삭제</button>
+	<button id="restoreBtn">div 요소 복구</button>
+	
+
+</body>
+
+</html>

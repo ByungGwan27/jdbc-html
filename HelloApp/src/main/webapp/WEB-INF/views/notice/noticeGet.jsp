@@ -131,6 +131,7 @@
 		//  document.getElementById('tlist').addEventListener('click', function() {console.log(this)})
 		
 	//04.25 tr 클릭 이벤트. 더블클릭시 수정
+	//e는 이벤트 객체다
 	tr.addEventListener('dblclick', function (e) {
 		//동일 id 수정
 		

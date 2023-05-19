@@ -13,7 +13,9 @@ public class PageDTO {
 	private boolean next;
 	private int pageNum;
 	
+	
 	public PageDTO(int pageNum, int total) {
+		
 		this.pageNum = pageNum;
 		
 		this.endPage = (int) Math.ceil(this.pageNum / 10.0) * 10; //ceil은 올림

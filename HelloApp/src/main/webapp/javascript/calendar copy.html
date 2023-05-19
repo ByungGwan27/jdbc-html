@@ -1,0 +1,142 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>calendar.html</title>
+  <style>
+    #show {
+      display: inline-block;
+      width: 350px;
+      height: 350px;
+      background-color: yellow;
+    }
+
+    #show span {
+      display: inline-block;
+      width: 90px;
+      height: 30px;
+      background-color: aqua;
+      text-align: center;
+      margin-top: 2px;
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+  
+  <h3>5월 달력</h3>
+  <input type="text" id="words">
+  <button>검색삭제</button>
+  <p class="remain"></p>
+  <div id="show">
+   <!-- <span>Hello</span> -->
+  </div>
+
+  <!-- <script src="calendarFun.js"></script> -->
+  <!-- <script src="calendarObj.js"></script> -->
+
+  <script>
+   // 삭제이벤트
+   // 초기값으로 60이라는 값.
+   let initSecs = 5
+
+   let missionSuccess = fales;
+   let job = setInterval(function () {
+    document.querySelector('p.remain').innerText
+    missionSuccess = !document.querySelectorAll('');
+    if (missionSuccess) {
+      alert('미션성공');
+      clearInterval(job); //작업종료
+      document.querySelector('p.remain').innerText = "end";
+    }
+    if(initSecs < 0 ) {
+      alert('미션실패');
+      clearInterval(job);
+      document.querySelector('p.remain').innerText = "end";
+    }
+    initSecs--;
+   }, 1000);
+   
+  setInterval(function () {
+    // console.log(Date())
+    console.log(initSecs--)
+
+    if(initSecs == 0) {
+    alert('미션실패');
+   }
+
+  }, 1000);
+
+  
+  //alert('미션성공'); or alert('미션실패');
+   //document.querySelector('button').addEventListener('click', ()=> {
+    document.querySelector('#words').addEventListener('change', ()=> {
+    let targetElem = document.querySelectorAll('#show span'); //NodeList반환.
+    let stg = targetElem;
+    targetElem.forEach(span => {
+      let search = document.getElementById('words').value;
+      // 입력값과 span 태그의 값이 같은가 비교.
+      if (span.innerText == search) {
+        span.remove();
+        stg--
+        if(targetElem.length == 1) {
+          alert('미션성공')
+        }
+      }
+    });
+    
+    // document.querySelector('#words').addEventListener('change', ()=> {
+    // let targetElem = document.querySelectorAll('#show span'); //NodeList반환.
+    // if(targetElem.length == 0) {
+    //   missionSuccess = true;
+    // }
+    // targetElem.forEach(span => {
+    //   let search = document.getElementById('words').value;
+    //   // 입력값과 span 태그의 값이 같은가 비교.
+    //   if (span.innerText == search) {
+    //     span.remove();
+    //     }
+    //   });
+    //    documet.getElementById('words').value = "";
+    // })
+
+
+
+    if(targetElem.length == stg.length) {
+      console.log('입력실패');
+    }
+
+    document.getElementById('words').value = ""; 
+   })  
+  
+
+  //  let words = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit aliquam, quasi, illo fugiat beatae in nihil illum cupiditate asperiores excepturi temporibus veniam unde maxime facilis numquam reprehenderit esse saepe inventore!';
+  let words = 's qq';
+   let wordAry = words.split(' ');
+   console.log(wordAry);
+
+   wordAry.forEach(word => {
+    let span = document.createElement('span');
+    span.innerText = word;
+    show.append(span);
+   })
+
+  //  wordAry.forEach(word, idx => {
+  //   if (idx < 11) {
+  //   let span = document.createElement('span');
+  //   span.innerText = word;
+  //   show.append(span);
+  //   }
+  //  })
+   
+   
+
+   
+   
+
+
+  </script>
+
+</body>
+</html>

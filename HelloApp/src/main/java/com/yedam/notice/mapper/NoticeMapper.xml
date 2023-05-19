@@ -63,7 +63,8 @@
 		parameterType="int">
 		select * from tbl_notice where notice_id=#{noticeId}
 	</select>
-
+	
+	<!-- 조회수 -->
 	<update id="updateCount" parameterType="int">
 		update tbl_notice set hit_count=hit_count+1 where notice_id=#{noticeId}
 	</update>

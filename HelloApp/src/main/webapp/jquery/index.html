@@ -1,0 +1,82 @@
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>webapp/jquery/index.html</title>
+  <script src="../js/jquery-3.7.0.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <!-- <script src="basic.js"></script> -->
+  <!-- <script src="basic1.js"></script> -->
+  <script src="fetchMember.js"></script>
+  <style>
+    td~td>input[type="checkbox"]:checked{
+      background-color: yellow;
+    }
+  </style>
+</head>
+
+<body>
+  <ul id="list">
+    <li>Apple</li>
+    <li>Banana</li>
+  </ul>
+
+  <table>
+    <tr>
+      <th>아이디</th>
+      <td><input type="text" id="id"></td>
+    </tr>
+    <tr>
+      <th>firstName</th>
+      <td><input type="text" id="fname"></td>
+    </tr>
+    <tr>
+      <th>lastName</th>
+      <td><input type="text" id="lname"></td>
+    </tr>
+    <tr>
+      <th>Gender</th>
+      <td><select id='gender' id="gender">
+          <option value="Male">Men</option>
+          <option value="Female">Women</option>
+        </select></td>
+    </tr>
+    <tr>
+      <td>
+        <button>등록</button>
+        <button>변경</button>
+        <button>선택된tr이동</button>
+      </td>
+    </tr>
+  </table>
+
+  <!-- th>td*3 같은 방식으로 치면 한번에 여러개, ()로 중첩도 가능-->
+  <div id="show">
+    <p><span>Hello</span><button>Click</button></p>
+    <p><span>World</span><button>Click</button></p>
+    <p><span>Good</span><button>Click</button></p>
+  </div>
+  <div id="show2">
+    <p><span>Hello</span><button>Click</button></p>
+    <p><span>World</span><button>Click</button></p>
+    <p><span>Good</span><button>Click</button></p>
+    <p>He<b>llo</b></p>
+  </div>
+
+  <table style="display: none;">
+    <tr class="template">
+      <td>1</td>
+      <td>Bronny</td>
+      <td>Nyssens</td>
+      <td>Male</td>
+      <td><button>삭제</button></td>
+      <td><input type="checkbox"></td>
+    </tr>
+  </table>
+
+
+</body>
+
+</html>
