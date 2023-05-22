@@ -17,6 +17,10 @@ public interface NoticeMapper {
 	public List<NoticeVO> noticeWithPage(int page); //목록 가져오기
 	public int insertNotice(NoticeVO vo); //입력
 	public int updateNotice(NoticeVO vo); // 수정
+	
+	//5.22 9:13
+	public int updateNoticeFile(NoticeVO vo); // 파일정보변경.
+	
 	public int deleteNotice(int noticeId); //삭제
 	public NoticeVO searchNotice(int noticeId); //단건조회
 	// 조회수증가.

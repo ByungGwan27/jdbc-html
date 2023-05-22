@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
    <!-- 1. 주소 변경 -->
 <mapper namespace="com.yedam.notice.mapper.NoticeMapper">
 	<!-- resultType="com.yedam.domain.Employee"> --> <!-- 3-2. Aliases 적용 전-->
@@ -73,6 +74,13 @@
 		notice_subject=#{noticeSubject}
 		where notice_id = #{noticeId}
 	</update>
+	
+	<!-- 5.22 9:14 공지사항 파일만 변경-->
+	<update id="updateNoticeFile" parameterType="notice">
+		UPDATE tbl_notice
+		SET attach_file = #{attachFile}
+		WHERE notice_id = #{noticeId}
+	</update>
 
 	<delete id="deleteNotice" parameterType="int">
 		delete from tbl_notice where notice_id=#{noticeId}
@@ -91,6 +99,5 @@
 	<select id="getCount" resultType="int">
 		SELECT count(*) FROM tbl_notice
 	</select>
-	
 
 </mapper>

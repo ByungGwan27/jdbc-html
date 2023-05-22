@@ -1,0 +1,204 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>arrayMethod.html</title>
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <script src="memberList.js"></script>
+  <script>
+    // <div id="show"></div>
+    // 회원아이디/ 이름/ 급여/ 누적급여
+    console.log($(data));
+  </script>
+  <script>
+    //console.log(data);
+
+    // 배열메소드: forEach(item, idx, ary)
+    // salary 4000 넘고 Female 인 사람들의 급여합계.
+    let sum = 0;
+    let cnt = 0;
+    let avg = 0;
+    let result = data.forEach(function (item, idx, ary) {
+      // console.log(item, idx, ary);
+      //if(idx % 2 == 1) {
+      //if(item.gender == 'Male') {
+      if(item.salary > 4000 && item.gender == 'Female') {
+        sum += item.salary;
+        cnt++;
+        //console.log(item);
+      }
+    });
+    //console.log('합계: ' + sum + ', 평균: ' + (sum / cnt));
+    //console.log(result);
+
+    // map() => 배열의 갯수만큼 새로운 형태의 값을 반환.
+    // A -> A'
+    result = data.map(function(item) {
+      let male = {}
+      male.id = item.id;
+      male.name = item.first_name + '-' + item.last_name;
+
+      return male;
+    });
+    //console.clear();
+    //console.log(result);
+
+    // filter() => 조건을 만족하는 새로운 배열.
+    // A -> B
+    result = data.filter(function(item) {
+      return item.gender == "Male";
+    });
+    //console.clear();
+    //console.log(result);
+
+    // 밑에 것 때문에 주석
+    // // reduce() => 반환값이 배열, number, 문자...
+
+    // result = data.reduce(function (a, b, c, d) {
+    //   if (c < 5) {
+    //     //console.log(a, b, c, d);
+    //   }
+    // });
+
+    //5.22 15:39
+    sum = 0;
+    result = data.reduce(function (acc, val, idx, ary) {
+      return acc + val.salary;
+    }, sum);
+    console.log('썸' + result);
+
+    //5번 만들기
+    // id/ name/ gender/ salary
+
+
+    //책 200p
+    // splice().
+    data = [];
+    data.push({id:data.length + 1, name:'Apple'});
+    data.push({id:data.length + 1, name:'Banana'});
+    data.unshift({id:data.length + 1, name:'Cherry'});
+    data.splice(1, 0, {id:data.length + 1, name:'Melon'});//splice로 삭제 추가 변경 다 가능
+    //data.pop();//제일 마지막 삭제
+    //data.shift();//첫번째 데이터 삭제
+    data.splice(2, 1);// 대체해줄 값을 안넣으면 삭제
+    console.log(data);
+
+    // Array.some()
+    result = data.some(function(item) {
+      return item.name == 'Banana';
+    });
+
+    result = data.every(function (item) {
+      return item.name.length >= 6;
+    })
+    console.log(result);
+
+    // from()
+    result = Array.from('abcde');// 배열 형식으로 만들어 줌
+    console.log(result);
+    
+    result = "a,b,c,d,e".split(',').reverse();
+    console.log(result);
+
+    // sort()
+    data = ['banana', 'cherry', 'apple']
+    result = data.sort();
+    console.log(result);
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+      //1번
+      // let easyAry = ['one', 'two', 'three']
+      // result = easyAry.reduce(function(acc, val) {
+      //   console.log(acc, val);
+      //   return acc + '-' + val;
+      // }, 'zero');
+      // console.log(easyAry);
+
+      //2번
+      // let easyAry = ['one', 'two', 'three']
+      // result = easyAry.reduce(function(acc, val) {
+      //   console.log(acc, val);
+      //   acc.push(val.toUpperCase());
+      //   return acc;
+      // }, []);
+      // console.log(result);
+
+      //3번
+      // let easyAry = ['one', 'two', 'three']
+      // result = easyAry.reduce(function(acc, val) {
+      //   console.log(acc, val);
+      //   let p = document.createElement('p');
+      //   p.innerText = val;
+      //   acc.append(p);
+
+      //   return acc;
+      // }, document.getElementById('show'));
+      // console.log(result);
+
+      // //4번
+      // let easyAry = ['one', 'two', 'three']
+      // result = easyAry.reduce(function(gwanacc, gwanval, gwanidx) {
+
+      //   //console.log(gwanacc, gwanval);
+      //   //let p = document.createElement('p');
+      //   //p.innerText = val;
+      //   gwanacc += '<tr><td>' + ++gwanidx + '</td><td>' + gwanval + '</td></tr>';
+      //   //acc.append(p);
+        
+      //   return gwanacc;
+      // }, "<table border='1'>");
+
+      // result += "</table>";
+
+      // //console.log(result); //<table>...</table>
+      // document.getElementById('show').innerHTML = result;
+
+      //5번
+      let easyAry = ['one', 'two', 'three']
+      result = data.reduce(function(acc, val, idx) {
+        
+        return acc;
+      }, $('<table />'));
+
+      $('#show').append(result);
+
+    })
+  </script>
+  <script>
+    
+  </script>
+</head>
+<body>
+  <div id="show">
+    <!-- 처음 -->
+    <!-- <table border="1">
+      <tr>
+        <td>1</td>
+        <td>홍길동</td>
+        <td>3500</td>
+        <td>3500</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>김길동</td>
+        <td>2800</td>
+        <td>6300</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>박길동</td>
+        <td>4000</td>
+        <td>10300</td>
+      </tr>
+    </table> -->
+
+    <!-- 4번을 밑에 방식으로 만들기 -->
+    <!-- <table>
+      <tr><td>one</td></tr>
+    </table> -->
+  </div>
+</body>
+</html>

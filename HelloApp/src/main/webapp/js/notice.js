@@ -93,15 +93,45 @@ $(document).ready(function() {
 			// multipart요청.
 			contentType: false,
 			processData: false,
-			error: function() {
-				
+			error: function(err) {
+				console.error(err);
 			},
-			success: function () {
-				
+			success: function (result) {
+				console.log(result);
+
+				//5.22 9:27
+				// 이미지변경.
+				$('img.nAttach').attr('src', 'images/' + result.attachFile);
 			}
 		});
 	})
 	
+	//5.22 9:35 모달창의 수정버튼 클릭.
+	$('div.modal-body button').on('click', function(e) {
+		let id = $('div.modal-body td.nid').text();//id의 값
+		let title = $('div.modal-body td.nTitle').text();
+		let subject = $('div.modal-body textarea.nSubject').val();//서브젝트는 textarea라서 val을 사용
+
+		$.ajax({
+			url: 'modifyNoticeJson.do',
+			method: 'post',
+			data: {id: id, title: title, subject: subject},//뒤에가 변수
+			error: function(err) {
+				console.log(err);
+			},
+			success: function (result) {
+				if (result.retCode == 'Success') {
+					console.log(result.retVal); // id, title, file...
+					$('#tr_' + result.retVal.noticeId)
+								.find('img').attr('src', 'images/' + result.retVal.attachFile);
+					$('#myModal').hide();
+				} else if (result.retCode == 'Fail') {
+					console.log('error 발생.');
+				}
+			}
+		});
+	})
+
 	$('form').on('submit', function(e) {
 		e.preventDefault(); // form.submit 기능 차단.
 		var frm = $('form')[0];
@@ -160,14 +190,18 @@ $(document).ready(function() {
 		success: function(data) {
 			console.log(data);
 			data.forEach((notice) => {
-				let tr = $('<tr />').append( $('<td />').text(notice.noticeId),
+				let tr = $('<tr />').append(
+											 $('<td />').text(notice.noticeId),
 											 $('<td />').text(notice.noticeTitle),
 											 $('<td />').text(notice.noticeWriter),
 											 $('<td />').append(
 												 $('<img />').css('width', '50px').attr('src', 'images/' + notice.attachFile)),
 											 $('<td />').append($('<button />').text('삭제').on('click', deleteRow))
-											 					
-				)
+				);
+
+				//5.22 9:33 tr에 id값 부여
+				tr.attr('id', 'tr_' + notice.noticeId);
+
 				$('#noticeList').append(tr);
 				
 			})
