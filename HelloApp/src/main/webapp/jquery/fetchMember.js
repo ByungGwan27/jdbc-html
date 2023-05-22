@@ -138,11 +138,15 @@ $(function() {
   // 변경 클릭 시 상단 입력창 항목과 값이 바뀌기
   $('body').on('click', 'button:eq(1)', function () {
     //let newId = $('')
+    console.log($(this));
+    let newTr = $(this).parentsUntil('tbody');
     let newId = $('#id').val();
     let newFname = $('#fname').val();
     let newLname = $('#lname').val();
     let newGender = $('#gender').val();
-    
+    console.log(newLname);
+    console.log('알려줘' , newTr);
+    console.log('여기');
     console.log($('.template>td:eq(0)'));
     let oldTr = $('.template').clone();
     oldTr.find('td:eq(0)').text(newId);
@@ -150,6 +154,8 @@ $(function() {
     oldTr.find('td:eq(2)').text(newLname);
     oldTr.find('td:eq(3)').text(newGender);
     oldTr.find('td:eq(5)').html('<input type="checkbox">');
+
+    //newTr.replaceWith(oldTr);
   })
 
   //등록 버튼 누를 시 하단에 추가하기
