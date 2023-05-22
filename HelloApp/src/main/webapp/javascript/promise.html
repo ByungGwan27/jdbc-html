@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>promise.html</title>
+  <script>
+
+    // 서버에 데이터 요청하는 비동기방식처리.
+    let id = '';
+    let name = '';
+    setTimeout(function() {
+      id = 'user1';
+
+      setTimeout(function() {
+        console.log('id는2 : ' + id);
+        name = '사용자1';
+
+        setTimeout(function() {
+          console.log('name은 : ' + name);
+        }, 1000)
+      }, 500);
+    }, 1000);
+    console.log('id는 : ' + id);
+
+    //245p
+    let promise = new Promise((resolve, reject) => {//promise는 객체
+      setTimeout(function () {
+        resolve('OK');//resolve는 성공했을 때 실행 할 함수
+        //reject('NG');
+      }, 1000);
+    });
+    promise
+      .then(function (resolve) {//정상 실행
+        console.log(resolve);
+        return resolve.toLowerCase();
+      })
+      .then(function(result) {
+        console.log(result);
+      })
+      .catch(function(reject) {//예외시
+        console.log(reject);
+      })
+
+      // fetch
+      let result = fetch('MOCK_DATA.json');
+      let result1 = result.then(function (data) {
+        return data.json(); // 문자열:json => object...
+      })
+      result1.then(function(result2) {
+        console.log(result2);
+      })
+      .catch(reject => console.log);
+      //console.log(result1);
+
+      // fetch().then().then().then().catch();
+
+      // promise : async, await
+      async function getServData() {//async키워드를 함수 앞에 붙여 줘야함
+
+        let promise = await fetch('MOCK_DATA.json');
+        let promise1 = await promise.json();
+        console.log(promise1);
+      }
+      console.clear();
+      getServData();
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
