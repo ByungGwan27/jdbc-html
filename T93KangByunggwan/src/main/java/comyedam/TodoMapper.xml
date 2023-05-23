@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+   <!-- 1. 주소 변경 -->
+<mapper namespace="comyedam.TodoMapper">
+
+	<select id="readTodo" resultType="todo">
+		SELECT * FROM tbl_todo ORDER BY todo_no
+	</select>
+	
+	<insert id="createTodo">
+		INSERT INTO tbl_todo VALUES(
+			(SELECT MAX(todo_no) + 1 FROM tbl_todo),
+			#{todoTitle},
+			'N')
+	</insert>
+
+	<update id="updateTodoY">
+		UPDATE tbl_todo SET todo_status = 'Y' WHERE todo_no = #{todoNo}
+	</update>
+	
+	<update id="updateTodoN">
+		UPDATE tbl_todo SET todo_status = 'N' WHERE todo_no = #{todoNo}
+	</update>
+	
+	<delete id="deleteToto">
+		DELETE tbl_todo WHERE todo_no = #{todoNo}
+	</delete>
+
+</mapper>
