@@ -136,135 +136,153 @@ input {
 </div>
 
 <ul id="myUL">
-  <!-- <li>Hit the gym</li>
-  <li class="checked">Pay bills</li>
-  <li>Meet George</li>
-  <li>Buy eggs</li>
-  <li>Read a book</li>
-  <li>Organize office</li> -->
 </ul>
 
 <script>
-/* fetch('todoList.json')
-.then(resolve => resolve.json())
-.then(result => {console.log(result);})
-.catch(reject => {console.error(reject);}); */
-</script>
 
-<script>
-$.ajax({
-	  url: 'todoList.json',
-	  method: 'GET',
-	  dataType: 'json',
-	  error: function(xhr) {
+$(document).ready(function() {
+	//읽기
+	readTodo();
+	
+	//추가
+	addTodo();
+	  
+	//삭제
+	delTodo();
+	  
+	//취소선
+	updateTodo();
+	
+});
+
+//읽기
+function readTodo() {
+	$.ajax({
+		url: 'todoList.json',
+	 	method: 'GET',
+	  	dataType: 'json',
+	  	error: function(xhr) {
 	    console.log(xhr.responseText);
 	  },
 	  success: function(l) {
 		  
-		  //읽기
 		  for(let i = 0; i < l.length; i++) {
+			  let ul = $('#myUL').append($('<li />').attr('id', l[i]['todoNo'])
+					  								.text(l[i]['todoNo'] + '. ' + l[i]['todoTitle']));
 			  
-		      let ul = $('#myUL').append(
-		                     $('<li />').attr('id', l[i]['todoNo'])
-		                      .text(
-		                        	 l[i]['todoNo'] + '. ' + l[i]['todoTitle'])
-		     						)
-		     						
-		      let $span = $('<span>\u00D7' + '</span>');
-		      $('#myUL>li:eq('+i+')').append($span.attr('class', 'close')
-		                                     );
-		      if(l[i]['todoStatus'] == 'Y') {
-		    	  $('#myUL>li:eq('+i+')').addClass('checked');
-		      }
+			  let $span = $('<span>\u00D7' + '</span>');
+			  $('#myUL>li:eq(' + i + ')').append($span.attr('class', 'close'));
+			  
+			  //db 상태 Y인 경우 체크해놓기
+			  if(l[i]['todoStatus'] == 'Y') {
+				  $('#myUL>li:eq(' + i + ')').addClass('checked');
+			  }
+			  
 		  };
+		  
+	  }
+	});
+}
+
+//추가하기
+function addTodo() {
+	$('.addBtn').on('click', function() {
+		let inputV = $('#myInput').val();
 		
-		  //추가
-		  $('.addBtn').on('click', function() {
-		      let inputV = $('#myInput').val();
-		      
-		      $.ajax({
-					url: 'createTodo?title=' + inputV,
-					dataType:'html', // Success, Fail
-					error: function (xhr) {
-						console.log(xhr);
-					},
-					success: function (result) {
-				        $('#myUL').append($('<li />').html('. ' + inputV + '<span class="close">\u00D7</span>'));
-						$('#myInput').val('');
-					}
-				})
-				.always(function () {
-					console.log('final.')
-				})
-		      
-		   	})
-		    
-		// 추가 된 후 삭제를 위해
-	    $(document).on('click', 'span.close', function(){
-	      let del = $(this).parent();
-	      //console.log(del);
-	      
-	      let todoN = del.attr('id');
-	      //console.log(todoN);
-	      
-		  	$.ajax({
-				url: 'deleteToto?todoN=' + todoN,
-				dataType:'html', // Success, Fail
+		$.ajax({
+			url: 'createTodo?title=' + inputV,
+			dataType: 'html',
+			error: function (xhr) {
+				console.log(xhr);
+			},
+			success: function (result) {
+				$('#myInput').val('');
+				$('#myUL').html('');
+				
+				//새로 리스트 불러오기
+				readTodo();
+				
+			}
+		})
+		.always(function () {
+			console.log('final.');
+		});
+	});
+	
+};
+
+//삭제하기
+function delTodo() {
+	$(document).on('click', 'span.close', function() {
+		let del = $(this).parent();
+		
+		let todoN = del.attr('id');
+		
+		$.ajax({
+			url: 'deleteToto?todoN=' + todoN,
+			dataType: 'html',
+			error: function (xhr) {
+				console.log(xhr);
+			},
+			success: function (result) {
+				del.remove();
+			}
+		})
+		.always(function () {
+			console.log('삭제 final.');
+		});
+		
+	});
+	
+};
+	
+
+//취소선 긋기
+function updateTodo() {
+	$(document).on('click', '#myUL>li', function() {
+		let checked = $(this).attr('class'); // 선택 여부를 확인하기 위해
+		let todoN = $(this).attr('id'); // 선택 대상의 고유번호를 확인하기 위해
+		let ct = $(this); //ajax안에선 this가 다른 대상을 가르키기 때문에 외부에서 변수 선언
+		
+		if(checked == 'checked') {
+			// GET 방식으로 전송
+			$.ajax({
+				url: 'updateTodoN?todoN=' + todoN,
+				dataType: 'html', //서버로부터 받은 데이터를 html 형식으로 처리
 				error: function (xhr) {
 					console.log(xhr);
 				},
 				success: function (result) {
-					del.remove();
+					ct.toggleClass('checked');
 				}
 			})
 			.always(function () {
-				console.log('final.')
-			})
+				console.log('final.');
+			});
 			
-	    });
-
-	    // 추가 된 후 중간선을 위해
-	    $(document).on('click', '#myUL>li', function() {
-	      let checked = $(this).attr('class'); 
-	      $(this).toggleClass('checked');
-	      let todoN = $(this).attr('id');
-	      
-	      if(checked == 'checked') {
-	    	  $.ajax({
-					url: 'updateTodoN?todoN=' + todoN,
-					dataType:'html', // Success, Fail
-					error: function (xhr) {
-						console.log(xhr);
-					},
-					success: function (result) {
-						$(this).toggleClass('checked');
-					}
-				})
-				.always(function () {
-					console.log('final.')
-				})
-	      } else {
-	    	  $.ajax({
-					url: 'updateTodoY?todoN=' + todoN,
-					dataType:'html', // Success, Fail
-					error: function (xhr) {
-						console.log(xhr);
-					},
-					success: function (result) {
-						$(this).toggleClass('checked');
-					}
-				})
-				.always(function () {
-					console.log('final.')
-				})
-	      }
-	      
-	    });
-	    //중간선 끝
-		  
-		  
-	  }
- })
+		} else {
+			// POST 방식으로 전송
+			$.ajax({
+				url: 'updateTodoY',
+				type: 'POST',
+				data: { todoN: todoN},//전송할 데이터 설정
+				dataType: 'html',
+				error: function (xhr) {
+					console.log(xhr);
+				},
+				success: function (result) {
+					ct.toggleClass('checked');
+				}
+			})
+			.always(function () {
+				console.log('final.');
+			});
+		}
+		
+	});
+	
+};
+ 
  
 
 </script>
