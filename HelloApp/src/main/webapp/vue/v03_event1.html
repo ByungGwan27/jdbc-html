@@ -19,7 +19,7 @@
     <h3>학생목록</h3>
     <ul>
       <li v-for="ss in studentList">
-        {{ss.name}} - {{ss.score}} <button v-on:click="delLi(ss.name)">삭제</button>
+        {{ss.name}} - {{ss.score}} <button v-on:click="delLi()">삭제</button>
       </li>
     </ul>
   </div>
@@ -45,20 +45,16 @@
         },
         delLi: function (name) {
           let sL = this.studentList
+          console.log(this);
+          console.log(this.$parent);
           console.log(name);
           console.log(sL);
-          console.log(sL.parentnode);
-
+          this.remove();
         },
         orderDesc: function () {
           let sL = this.studentList
           let result = sL.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1);
           return result;
-          // for(nn of sL) {
-          //   //console.log(nn.name);
-          // }
-          //let newAry = this.intArray.reverse();
-          //this.intArray = newAry;
         }
       }
     })
