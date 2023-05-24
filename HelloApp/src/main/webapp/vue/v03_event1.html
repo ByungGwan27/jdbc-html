@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v03_event1.html</title>
+  <script src="https://unpkg.com/vue@2"></script>
+</head>
+
+<body>
+  <div class="app">
+    <label>이름</label><input v-model="name">
+    <label>성적</label><input v-model="score">
+    <button v-on:click="saveScore">저장</button>
+    <button v-on:click="orderDesc">이름순정렬</button>
+
+    <h3>학생목록</h3>
+    <ul>
+      <li v-for="ss in studentList">
+        {{ss.name}} - {{ss.score}} <button v-on:click="delLi(ss.name)">삭제</button>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    new Vue({
+      el: '.app',
+      data: {
+        studentList: [{
+        name: '홍길동',
+        score: 80
+        }],
+        name: '',
+        score: 0
+      },
+      methods: {
+        saveScore: function () {
+          console.log(this.name, this.score);
+          this.studentList.push({
+            name: this.name,
+            score: this.score
+          })
+        },
+        delLi: function (name) {
+          let sL = this.studentList
+          console.log(name);
+          console.log(sL);
+          console.log(sL.parentnode);
+
+        },
+        orderDesc: function () {
+          let sL = this.studentList
+          let result = sL.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1);
+          return result;
+          // for(nn of sL) {
+          //   //console.log(nn.name);
+          // }
+          //let newAry = this.intArray.reverse();
+          //this.intArray = newAry;
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v02_gugudan.html</title>
+  <script src="https://unpkg.com/vue@2"></script>
+</head>
+  <div id="app">
+    <ul v-for="f in 4">{{f+1}}단
+      <li v-for="n in 9">{{f+1}} * {{n}} = {{(f+1)*n}}</li>
+    </ul>
+
+    <table>
+      <tr v-for="f in 9">
+        <td v-for="n in 4">{{n+1}}단
+          {{n+1}} * {{f}} = {{(n+1)*f}}&nbsp&nbsp&nbsp&nbsp
+        </td>
+      </tr>
+    </table>
+
+    <input v-model="nunu">
+    <ul>{{nunu}}단
+      <li v-for="n in 9">{{nunu}} * {{n}} = {{nunu*n}}</li>
+    </ul>
+
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        nunu: 1
+      }
+    })
+  </script>
+<body>
+</body>
+
+</html>
