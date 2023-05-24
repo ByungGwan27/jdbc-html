@@ -22,9 +22,6 @@ public class deleteToto extends HttpServlet {
 		int todoN = Integer.parseInt(request.getParameter("todoN"));
 		TodoService service = new TodoServiceImpl();
 		service.deleteToto(todoN);
-		
-		//String json = "Fail";
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

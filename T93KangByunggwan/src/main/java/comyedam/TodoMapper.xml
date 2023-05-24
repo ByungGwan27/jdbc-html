@@ -11,10 +11,11 @@
 	</select>
 	
 	<insert id="createTodo">
-		INSERT INTO tbl_todo VALUES(
-			(SELECT MAX(todo_no) + 1 FROM tbl_todo),
-			#{todoTitle},
-			'N')
+		INSERT INTO tbl_todo (todo_no, todo_title)
+		VALUES(
+		        (SELECT NVL(MAX(todo_no), 0) + 1 FROM tbl_todo),
+		         #{todoTitle}
+		)
 	</insert>
 
 	<update id="updateTodoY">
