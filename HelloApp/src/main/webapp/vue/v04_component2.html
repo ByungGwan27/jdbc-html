@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v04_component2.html</title>
+  <script src="https://unpkg.com/vue@2"></script>
+</head>
+
+<body>
+  <div id="app">
+    <instance-component></instance-component>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      component: {
+        'instance-component': {
+          template: `
+          <div style="border:1px solid black">
+            <span><h3>지역컴포넌트 입니다.</h3></span>
+          </div>
+          `
+        }
+      }
+    });
+  </script>
+  <div id="app3">
+    <my-comp></my-comp>
+  </div>
+  <script>
+    //전역 컴포넌트 사용예시
+    Vue.component('my-comp', {
+      template: '<button v-on:click="incrementCounter">{{counter}}</button>',
+      methods: {
+        incrementCounter: function () {
+          this.counter++;
+        }
+      },
+      data: function () {
+        return {
+          counter: 0
+        }
+      },
+    })
+    new Vue({
+      el: '#app3',
+      data: {
+        msg: 'Hello'
+      },
+    })
+  </script>
+  <hr>
+  <div id="app2">
+    <p>{{counter}}</p>
+    <button v-on:click="countUp">증가</button>
+    <count-component v-on:child-count="countUp"></count-component>
+  </div>
+  <script>
+    new Vue({
+      el: '#app2',
+      data: {
+        counter: 0,
+      },
+      methods: {
+        countUp: function () {
+          this.counter++;
+        }
+      },
+      components: {
+        'count-component': {
+          template: `
+        <div>
+          <button v-on:click="childCountUp">하위요소증가</button>
+        </div>
+        `,
+          methods: {
+            childCountUp: function () {
+              this.$emit('child-count');
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
