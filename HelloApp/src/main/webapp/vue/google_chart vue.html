@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>google_chart <vue class="html"></vue></title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        var origData = [
+            ['Task', 'Hours per Day'],
+            ['도시락', 3],
+            ['갈비탕', 2],
+            ['오므라이스', 2],
+            ['짬뽕', 2],
+            ['비빔밥', 7],
+            ['메밀소바', 3]
+        ];
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable(origData);
+            var options = {
+                title: 'My Daily Activities',
+                is3D: false
+            };
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+
+<body>
+
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    <div id="list">
+        <vote-list v-bind:object="origData2" v-on:up-count="countUp"
+        ></vote-list>
+    </div>
+
+    <script>
+        const voteList = {
+            template:`
+            <ul>
+                <li v-for="item in object" v-if="item[0] !='Task'">
+                    {{item[0]}}
+                    <button v-on:click="countUp(item[0])">vote</button>
+                </li>
+            </ul>
+            `,
+            methods: {
+                countUp: function (task) {
+                    this.$emit('up-count', task);
+                }
+            },
+            props: ['object']
+        }
+        let kk = new Vue({
+            el: '#list',
+            data: {
+                origData2: origData
+            },
+            methods: {
+                countUp: function (task2) {
+                    for(let i = 0; i < this.origData2.length; i++) {
+                        if (this.origData2[i][0] == task2) {
+                            this.origData2[i][1]++;
+                            console.log(this.origData2[i][1]);
+                            drawChart()
+                        }
+                    }
+                }
+            },
+            components: {
+                'vote-list': voteList
+            }
+        })
+    </script>
+
+
+
+</body>
+
+</html>

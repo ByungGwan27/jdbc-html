@@ -15,11 +15,16 @@
     <h3>간단한 게시판</h3>
     <board-list v-if="isList" v-on:board-write="boardWrite"
       v-bind:object="boardArray" v-on:board-read="boardRead"
+      v-on:board-delete="boardDelete"
     ></board-list>
+
     <board-read v-if="isRead" v-on:board-list="boardList"
       v-bind:object="boardInfo"
     ></board-read>
-    <board-write v-if="isWrite" v-on:board-list="boardList"></board-write>
+
+    <board-write v-if="isWrite" v-on:board-list="boardList"
+      v-on:board-list="boardList" v-on:board-write="boardSave"
+    ></board-write>
   </div>
 
   <script>
@@ -40,7 +45,7 @@
               <td>{{item.no}}</td>
               <td v-on:click="boardRead(item)">{{item.title}}</td>
               <td>{{item.view}}</td>
-              <td><button>삭제</button></td>
+              <td><button v-on:click="boardDelete(item.no)">삭제</button></td>
             </tr>
           </tbody>
         </table>
@@ -53,6 +58,9 @@
         },
         boardRead: function (board) {
           this.$emit('board-read', board);//2번째에 쓰면 매개값으로 설정됨
+        },
+        boardDelete: function (no) {
+          this.$emit('board-delete', no);
         }
       },
       props: ['object']
@@ -105,11 +113,11 @@
       },
       methods: {
         boardSave: function () {
-
+          this.$emit('board-write', this.title, this.content);
         },
         boardList: function () {
           this.$emit('board-list');
-        }
+        },
       }
     } // end of components.
 
@@ -139,18 +147,46 @@
 
           // 상세화면에 출력.
           this.boardInfo = board;
+
+          // 조회수 증가.
+          for (let i = 0; i < this.boardArray.length; i++) {
+            if (this.boardArray[i].no == board.no) {
+              this.boardArray[i].view++;
+            }
+          }
         },
         boardWrite: function () {
           this.isList = false;
           this.isRead = false;
           this.isWrite = true;
+        },
+        boardDelete: function (no) {
+          // for (let i = 0; i < vm.boardArray.length; i++) {
+          //   if (vm.boardArray[i].no == no) {
+          //     console.log(i);
+          //     vm.boardArray.splice(i, 1);
+          //   }
+          // }
+          this.boardArray.forEach(function (board, idx, ary) {
+            if (board.no == no) {
+              ary.splice(idx, 1);
+            }            
+          });
+        },
+        boardSave: function (title, content) {
+          let no = 1;
+          let idx = this.boardArray.length - 1;
+          no = parseInt(this.boardArray[idx].no) + 1;
+
+          this.boardArray.push({no: no, title: title, content: content, view: 0});
+
+          this.boardList(); // 저장 후 목록 이동.
         }
       },
       components: {
         'board-list': BoardList,
         'board-read': BoardRead,
         'board-write': BoardWrite,
-
       }
     })
   </script>

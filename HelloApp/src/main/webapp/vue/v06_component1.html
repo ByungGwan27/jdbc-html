@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v06_component1.html</title>
+  <script src="https://unpkg.com/vue@2"></script>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <list-component v-bind:message="msg1"></list-component>
+      <list-component v-bind:message="msg2"></list-component>
+    </ul>
+  </div>
+
+  <script>
+    // 전역 변수로 선언하거나 아래 components의 'list-component'에 생성
+    const ListComponent= {
+      template: `
+          <li>{{message}}</li>
+          `,
+          props: ['message'] 
+    }
+    new Vue({
+      el: '#app',
+      data: {
+        msg1: '안녕하세요',
+        msg2: 'Hello'
+      },
+      components: {
+        'list-component': ListComponent
+        //위에 ListComponent 대신 아래 넣어도 사용가능
+        // {
+        //   template: `
+        //   <li>{{message}}</li>
+        //   `,
+        //   props: ['message']
+        // }
+      }
+    })
+  </script>
+</body>
+
+</html>
