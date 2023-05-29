@@ -51,6 +51,7 @@
   </script>
 
   <script>
+    // 하위 컴포넌트
     const PrintComponent = {
       template: `
           <div>
@@ -60,6 +61,7 @@
       props: ['userInfo']
     }
 
+    //상위 컴포넌트
     const InputComponent = { //<input-component></input-component>를 대신하는 작업
       template: '#inputTemplate',//해당 id의 템플릿을 가져오기
       data: function () {
