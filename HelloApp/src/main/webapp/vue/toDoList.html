@@ -18,15 +18,48 @@
 <body>
 
   <div id="app">
-    <todolist-component v-bind:todos="todos" v-model.trim:add-text="addText" 
-      v-model:add-date="addDate" v-on:add-todo="addTodo"
-      v-on:clean-todo="cleanTodo" v-on:sort-date="sortDate"
-      v-bind:remaining="remaining"
-    ></todolist-component>
+    <todolist-component v-bind:todos="todos" v-bind:remaining="remaining"
+      v-on:add-todo="addToDo"
+      v-on:clean-todo="cleanToDo" v-on:sort-date="sortDate"
+      v-bind:add-text="addText" v-bind:add-date="addDate"
+      ></todolist-component>
   </div>
 
 
   <script>
+    const pC = {
+      template: `
+        <div>
+          <input type="text" v-model.trim="addText" v-on:keyup.enter="addToDo" placeholder="할일">
+          <input type="text" v-model="addDate" v-on:keyup.enter="addToDo" placeholder="완료일(yyyymmdd형식)">
+          <p>
+          <button v-on:click="cleanToDo">처리완료삭제</button>
+          <button v-on:click="sortDate">완료일순정렬</button>
+          </p>
+        </div>
+      `,
+      data: function () {
+        return {
+          addText: '',
+          addDate: ''
+        };
+      },
+      methods: {
+        cleanToDo: function () {
+          this.$emit('clean-todo');
+        },
+        sortDate: function () {
+          this.$emit('sort-date');
+        },
+        addToDo: function() {
+          this.$emit('add-todo', this.addText, this.addDate);
+          this.addText = "";
+          this.addDate = "";
+        }
+      },
+      //props: ['addText', 'addDate']
+    }
+
     const tlC = {
       template: `
       <div>
@@ -37,49 +70,37 @@
             <span v-bind:class="{'done-style': todo.done}">{{todo.text}} (완료일: {{todo.doneDate}})</span>
           </label>
         </div>
-        <input type="text" v-model.trim="addText" v-on:keyup.enter="addToDo" placeholder="할일">
-        <input type="text" v-model="addDate" v-on:keyup.enter="addToDo" placeholder="완료일(yyyymmdd형식)">
-        <p>
-        <button v-on:click="cleanToDo">처리완료삭제</button>
-        <button v-on:click="sortDate">완료일순정렬</button>
-        </p>
+        <plus-component
+          v-on:clean-todo="cleanToDo" v-on:sort-date="sortDate"
+          v-on:add-todo="addToDo" v-bind:todos="todos"
+          v-bind:add-text="addText" v-bind:add-date="addDate"
+        ></plus-component>
         <p>{{remaining}} / {{todos.length}}</p>
       </div>
       `,
-      data: function () {
-        return {
-          addText: '',
-          addData: '',
-          todos: []
-        }
+      components: {
+        'plus-component': pC
       },
       methods: {
-        addText: function () {
-          this.$emit('add-text');
-        },
-        addDate: function () {
-          this.$emit('add-date');
-        },
-        addToDo: function () {
-          this.$emit('add-todo');
-        },
         cleanToDo: function () {
           this.$emit('clean-todo');
         },
         sortDate: function () {
           this.$emit('sort-date');
+        },
+        addToDo: function (text, date) {
+          this.$emit('add-todo', text, date);
         }
       },
-      props: ['todos']
+      props: ['todos', 'remaining', 'addText', 'addDate']
     }
 
     new Vue({
       el: '#app',
       data: {
         addText: '',
-        addData: '',
-        todos: [
-          {
+        addDate: '',
+        todos: [{
             done: false,
             text: 'bread',
             doneDate: '20230115'
@@ -91,24 +112,19 @@
           }
         ]
       },
-      computed: {
-        remaining: function () {
-          return this.todos.filter(function (val) {
-            return val.done;
-          }).length;
-        }
-      },
-      
       methods: {
-        addTodo: function () {
-          if (this.addText && this.addDate) {
+        addToDo: function (addText, addDate) {
+          console.log(addText);
+          console.log(this.addDate);
+          
+          if (addText && addDate) {
             this.todos.push({
               done: false,
-              text: this.addText,
-              doneDate: this.addDate
+              text: addText,
+              doneDate: addDate
             });
-            this.addText = "";//값 비워주기
-            this.addDate = "";
+            addText = ""; //값 비워주기
+            addDate = "";
             //console.log(this.$el.querySelector('input[placeholder]:nth-of-type(1)').focus());
             //console.log(this.$el.children);
           } else {
@@ -116,21 +132,27 @@
           }
         },
         cleanToDo: function () {
-          this.todos = this.todos.filter (function (val) {
-            return val.done == false;
-          })
+          this.todos = this.todos.filter(function (todo) {
+            return todo.done == false;
+          });
         },
         sortDate: function () {
-          this.todos.sore(function (first, last) {
+          this.todos.sort(function (first, last) {
             return parseInt(first.doneDate) - parseInt(last.doneDate)
-          })
+          });
         }
       },
-
+      computed: {
+        remaining: function (val) {
+          return this.todos.filter(function (val) {
+            return val.done;
+          }).length;
+        }
+      },
       components: {
         'todolist-component': tlC
       }
-    })
+    });
   </script>
 </body>
 

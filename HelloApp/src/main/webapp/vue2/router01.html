@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>router01.html</title>
+  <script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router@3/dist/vue-router.js"></script>
+</head>
+<body>
+  <div id="app">
+    <router-link to="/main">main</router-link>
+    <router-link to="/info/20230531">info</router-link>
+
+    <router-view></router-view>
+  </div>
+  <script>
+    const mainComponent = {
+      template : '<div><h1>메인페이지</h1></div>'
+    }
+
+    const infoComponent = {
+      template : `<div>
+                  <h3>정보 페이지</h3>
+                  <p>{{ data }}</p>
+                </div>`,
+      props : ['data']
+      // 아래 방식은 달러를 쓰기 때문에 위험성이 있음
+      // data : function () {
+      //   return {
+      //     info : ''
+      //   }
+      // },
+      // created : function () {
+      //   this.info = this.$route.params.data;
+      // }
+    }
+
+    const router = new VueRouter({
+      routes : [
+        {
+          path : '/main',//경로 지정
+          component : mainComponent//어떤 컴포넌트가 실행 될지. 여기까지 작성이 기본
+        },
+        {
+          path : '/info/:data',//경로를 통해 data를 보냄(경로에 값을 붙여 보냄) -> info가 경로. :다음이 데이터 위치(임의값 or props와 맞춰줌)
+          component : infoComponent,
+          props : true
+        },
+        {
+          path : '/user/:id/pwd/:pwd',
+          component : {
+            template : `<div> User : {{this.$route.params.id}} <br>
+                              비밀번호 : {{this.$route.params.pwd}} </div>`
+          }
+        }
+      ]
+    })
+
+    let homeApp = new Vue({
+      el : '#app',
+      router : router
+    })
+  </script>
+  <div id="app2">
+    <!-- <router-link tag="button" to="/users/erina" style="color : red;">User</router-link> -->
+    <router-link tag="button" v-bind:to="{name : 'user' , params : {username : 'erina'}}">User</router-link>
+    <router-view></router-view>
+  </div>
+    <script>
+      const vueRouter = new VueRouter({
+        mode : 'history',
+        // hash : '#' + '경로' -> server에 요청을 보내지 않고 이동 => default
+        // history : '#'을 제외하고 SPA 구현하기 위한 모드, history API
+        routes : [
+          {
+            path : '/users/:username',
+            name : 'user',
+            component : {
+              template : `
+                          <div>
+                            <p> 유저 정보 : {{username}} </p>
+                          </div>`,
+              props : ['username']
+            },
+            props : true
+          }
+        ]
+      })
+
+      let userApp = new Vue({
+        el : '#app2',
+        router : vueRouter,
+        methods : {
+          changeURL : function () {
+            if(true) {
+              this.$route.push({ name : 'user',
+                                  params : {username : 'erina'}});
+            } else {
+              this.$route.push();
+            }
+          }
+        }
+      })
+    </script>
+</body>
+</html>
