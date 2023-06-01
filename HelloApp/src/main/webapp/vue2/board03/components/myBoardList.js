@@ -36,13 +36,25 @@ export default {
   },
   methods: {
     boardDelete: function (no) {
-      for (let i = 0; i < this.object.length; i++) {
-        if (this.object[i].no == no) {
-          this.object.splice(i, 1);
-        }
-      }
+      // fetch('http://192.168.0.51:8081/myserver/boardDelete', {
+      //   method : 'post',
+      //   body : { no : no }
+      // })
+      // .then(response => console.log(response.body))
+      // .catch(err => console.log(err));
 
-      this.$parent.setDataArray(this.object);
+      fetch('http://192.168.0.51:8081/myserver/boardDelete?no='+no)
+      .then(response => response.text())
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
+
+      // for (let i = 0; i < this.object.length; i++) {
+      //   if (this.object[i].no == no) {
+      //     this.object.splice(i, 1);
+      //   }
+      // }
+
+      // this.$parent.setDataArray(this.object);
     }
   }
 }

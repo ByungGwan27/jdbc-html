@@ -26,40 +26,22 @@ export default {
   },
   methods : {
     boardSave : function(){
-      console.log('1');
-      let dataArray = this.$route.getDataArray();
-      console.log(dataArray);
-      let no = 1;
-      if(dataArray.length != 0) {
-        let index = dataArray.length - 1;
-        no = parseInt(dataArray[index].no) + 1;//json은 객체 모양이지만 type은 String
-      }
-      let board_info = {
-        'no' : no,
-        'title' : this.title,
-        'content' : this.content,
-        'view' : 0
-      }
+      //fetch('http://192.168.0.51:8081/myserver/boardInsert?title=' + this.title + '&content=' + this.content)
+      fetch('http://192.168.0.51:8081/myserver/boardInsert', {
+        method : 'post',
+        headers : {
+          'Content-type' : 'application/json'
+        },
+        body : JSON.stringify({title : this.title, content : this.content})
+        //body안에 데이터가 존재
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        this.$router.push({ name : 'boardList'});//해당 페이지로 이동
+      })
+      .catch(err => console.log(err));
       
-      dataArray.push(board_info);
-      
-      this.$parent.setDataArray(dataArray);
-      this.$router.push({ name : 'boardList'});
-      
-      console.log(this.title);
-      console.log('3');
-  
-      fetch('http://192.168.0.51:8081/myserver/boardInsert')
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-          console.log(this);
-          console.log('2');
-          //this.object = data;
-          //this.object.push(board_info);
-        })
-        .catch(err => console.log(err));
-
     },
   } 
 }
